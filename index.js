@@ -2,13 +2,12 @@ const express = require('express');
 require('dotenv').config();
 const app = express();
 const port = 3000;
-const pg = require('pg');
 
-const { Pool } = pg;
+const db = require("./models"); // Importation du modèle de la base de données
+db.sequelize.sync().then(()=> console.log('db synchronisé')); // Synchronisation du modèle avec la base de données
 
-const pool = new Pool({
-  connectionString: process.env.POSTGRES_URL ,
-})
+const todoRoute = require('./routes/todo.routes');
+app.use('/api/todos', todoRoute);
 
 app.use('/', (req, res) => {
     res.send('Hello World!');
