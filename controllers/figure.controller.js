@@ -4,7 +4,7 @@ const Figure = db.figure;
 const Op = db.Sequelize.Op;
 
 // Création et enregistrement d'une nouvelle figure
-exports.create = async (req, res) => {
+module.exports.create = async (req, res) => {
     console.log(req.body);
     // Validation de la requête
     if (!req.body.title) {
@@ -18,7 +18,7 @@ exports.create = async (req, res) => {
         return;
     }
     const blob = await put(req.file.originalname, req.file.buffer, { access: 'public' });
-    console.log(`Blob stored with id: ${blob.id}`);
+    console.log(`Blob stored with id: ${blob}`);
     // Création d'une figure
     const figure = {
         title: req.body.title,
