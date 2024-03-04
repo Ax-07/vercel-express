@@ -1,5 +1,6 @@
 const db = require("../models");
 const { put } = require("@vercel/blob");
+const {upload} = require("@vercel/blob/client")
 const Figure = db.figure;
 const Op = db.Sequelize.Op;
 
@@ -29,7 +30,7 @@ if (req.files['image']) {
 
 if (req.files['video']) {
     const videoFile = req.files['video'][0];
-    blobVideo = await put(videoFile.originalname, videoFile.buffer, { access: 'public' });
+    blobVideo = await upload(videoFile.originalname, videoFile.buffer, { access: 'public', multipart: true});
     console.log(`Blob stored with id: ${blobVideo.url}`);
 }
 
