@@ -13,20 +13,33 @@ module.exports.create = async (req, res) => {
         return;
     }
 
-    // Supposons que req.file contient les données de l'image
-    if (!req.file) {
-        res.status(400).json({ message: "L'image est requise !" });
-        return;
-    }
-    const blob = await put(req.file.originalname, req.file.buffer, { access: 'public' });
-    console.log(`Blob stored with id: ${blob.url}`);
-    // Création d'une figure
-    const figure = {
-        title: req.body.title,
-        description: req.body.description,
-        image: blob.url, // stockez l'ID du blob ici
-        video: req.body.video
-    };
+// Supposons que req.files contient les données des fichiers
+if (!req.files) {
+    res.status(400).json({ message: "Une image ou une vidéo est requise !" });
+    return;
+}
+
+let blobImage, blobVideo;
+
+if (req.files['image']) {
+    const imageFile = req.files['image'][0];
+    blobImage = await put(imageFile.originalname, imageFile.buffer, { access: 'public' });
+    console.log(`Blob stored with id: ${blobImage.url}`);
+}
+
+if (req.files['video']) {
+    const videoFile = req.files['video'][0];
+    blobVideo = await put(videoFile.originalname, videoFile.buffer, { access: 'public' });
+    console.log(`Blob stored with id: ${blobVideo.url}`);
+}
+
+// Création d'une figure
+const figure = {
+    title: req.body.title,
+    description: req.body.description,
+    image: blobImage ? blobImage.url : null, // stockez l'ID du blob ici
+    video: blobVideo ? blobVideo.url : null // stockez l'ID du blob ici
+};
 
     // Sauvegarde de la figure dans la base de données
     try {
