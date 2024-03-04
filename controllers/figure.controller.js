@@ -19,7 +19,7 @@ module.exports.create = async (req, res) => {
         return;
     }
     const blob = await put(req.file.originalname, req.file.buffer, { access: 'public' });
-    console.log(`Blob stored with id: ${blob}`);
+    console.log(`Blob stored with id: ${blob.url}`);
     // Création d'une figure
     const figure = {
         title: req.body.title,
