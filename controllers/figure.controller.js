@@ -30,7 +30,7 @@ if (req.files['image']) {
 
 if (req.files['video']) {
     const videoFile = req.files['video'][0];
-    blobVideo = await upload(videoFile.originalname, videoFile.buffer, { access: 'public', multipart: true});
+    blobVideo = await put(videoFile.originalname, videoFile.buffer, { access: 'public', multipart: true});
     console.log(`Blob stored with id: ${blobVideo.url}`);
 }
 
