@@ -17,5 +17,6 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.todos = require('./todo.model.js')(sequelize, Sequelize); // Importation du modèle Todo et l'initialisation avec l'instance de Sequelize et Sequelize
+db.figure = require('./figure.model.js')(sequelize, Sequelize); // Importation du modèle Figure et l'initialisation avec l'instance de Sequelize et Sequelize
 
 module.exports = db;
