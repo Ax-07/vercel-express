@@ -3,6 +3,7 @@ const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize(process.env.POSTGRES_URL, {
     dialect: 'postgres',
+    dialectModule: require('pg')
 });
 const db = {}; // Création d'un objet vide pour stocker les modèles de la base de données
 
