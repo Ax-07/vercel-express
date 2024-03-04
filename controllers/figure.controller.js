@@ -6,6 +6,7 @@ const Op = db.Sequelize.Op;
 // Création et enregistrement d'une nouvelle figure
 module.exports.create = async (req, res) => {
     console.log(req.body);
+    console.log(req.file);
     // Validation de la requête
     if (!req.body.title) {
         res.status(400).json({ message: "Le contenu ne peut pas être vide !" });
@@ -23,7 +24,7 @@ module.exports.create = async (req, res) => {
     const figure = {
         title: req.body.title,
         description: req.body.description,
-        image: blob.id, // stockez l'ID du blob ici
+        image: blob.url, // stockez l'ID du blob ici
         video: req.body.video
     };
 

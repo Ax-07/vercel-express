@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         image: {
-            type: DataTypes.JSON,
+            type: DataTypes.STRING,
             allowNull: true
         },
         video: {
